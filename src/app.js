@@ -1,6 +1,7 @@
 import { fileURLToPath } from 'url'
 import * as path from 'path'
 import express from 'express' // express is a function (not an object as many other modules)
+import hbs from 'hbs'
 
 const moduleURL = new URL(import.meta.url);
 const __filename = fileURLToPath(import.meta.url);
@@ -20,9 +21,10 @@ const publicDirPath = path.join(__dirname, '../public')
  If we want to change the name of views dir to another like templates for ex
  we can customize the location of the dir as well
 */
-const viewsPath = path.join(__dirname, '../templates')
+const viewsPath = path.join(__dirname, '../templates/views')
+const partialsPath = path.join(__dirname, '../templates/partials')
 /********* END Define path to the files *********/
-/********* Define path to the files *********/
+//
 // Telling express which templating engine we installed:
 // to create dynamic templates
 //
@@ -30,6 +32,7 @@ const viewsPath = path.join(__dirname, '../templates')
 app.set('view engine', 'hbs') // key : value (setting name / name of the module installed hbs)
 // if we changed the view dir name:
 app.set('views', viewsPath)
+hbs.registerPartials(partialsPath)
 /********* END handlebars *********/
 //
 /********* Setup static dir to serve *********/
@@ -44,13 +47,29 @@ app.get('', (req,res) => {
 app.get('/about', (req, res) => {
   res.render('about', {
     title: 'About me',
-    name: 'Olga',
+    name: 'created by Olga Spirkina',
     profession: 'junior Web developer'
   })
 })
 app.get('/help', (req,res) => {
   res.render('help', {
-    helpMessage: 'Feel free to reach us if you have any question'
+    helpMessage: 'Feel free to reach us if you have any question',
+    title: 'Help',
+    name: 'created by Olga Spirkina'
+  })
+})
+app.get('/help/*', (req,res) => {
+  res.render('error404', {
+    title: '404',
+    name: 'created by Olga Spirkina',
+    errorMessage: 'Help article not found'
+  })
+})
+app.get('*', (req,res) => {
+  res.render('error404', {
+    title: '404',
+    name: 'created by Olga Spirkina',
+    errorMessage: 'Page not found'
   })
 })
 // Example static rendering

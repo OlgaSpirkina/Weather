@@ -6,11 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="/css/styles.css">
   <script src="/js/app.js" type="text/javascript" defer></script>
-  <title>Home Page</title>
+  <title>About Page</title>
 </head>
 <body>
-  <h1>{{title}}</h1>
-  <h2>{{name}}</h2>
-  <img src="/img/dog.jpg" alt="black small dog" style="border-radius:5%"/>
+  {{>header}}
+  <h2>My name is {{name}} and I'm a {{profession}}</h2>
+  {{>footer}}
 </body>
 </html>
