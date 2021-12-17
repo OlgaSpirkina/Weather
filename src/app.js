@@ -13,10 +13,26 @@ import chalk from 'chalk';
 
 
 const app = express() // express generate our app
+//
+/********* Define path to the files *********/
 const publicDirPath = path.join(__dirname, '../public')
+/*
+ If we want to change the name of views dir to another like templates for ex
+ we can customize the location of the dir as well
+*/
+const viewsPath = path.join(__dirname, '../templates')
+/********* END Define path to the files *********/
+/********* Define path to the files *********/
 // Telling express which templating engine we installed:
 // to create dynamic templates
+//
+/********* Setup handlebars engine & views location *********/
 app.set('view engine', 'hbs') // key : value (setting name / name of the module installed hbs)
+// if we changed the view dir name:
+app.set('views', viewsPath)
+/********* END handlebars *********/
+//
+/********* Setup static dir to serve *********/
 app.use(express.static(publicDirPath)) // index.html
 // dynamic page rendering with handlebars hbs
 app.get('', (req,res) => {
